@@ -1,9 +1,27 @@
 import re
+import os
+
+
+def insert_h1(text, file_path):
+    if text.startswith('#'):
+        return text
+
+    file_name = os.path.basename(file_path)
+    file_name_without_ext = os.path.splitext(file_name)[0]
+    return f'# {file_name_without_ext}\n' + text
+
+
+def replace_brace(text):
+    text = re.sub(r'(?<!```)\n{\n', '\n```\n{\n', text)
+    text = re.sub(r'\n}\n(?!```)', '\n}\n```\n', text)
+    return text
 
 
 def format_to_markdown(text):
     ''' 1. 单个换行，前置两个空格
     '''
+    text = replace_brace(text)
+
     enter_pattern = re.compile(r'\n')
     text_formatted = ''
     last_end_index = 0

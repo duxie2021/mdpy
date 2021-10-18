@@ -29,19 +29,25 @@ def compile_one_file(file_path):
         match_end_index = match.end()
 
     file_generated += file_origin[match_end_index:]
-    file_formatted = formatter.format_to_markdown(file_generated)
+    file_formatted = formatter.insert_h1(file_generated, file_path)
+    file_formatted = formatter.format_to_markdown(file_formatted)
     # write file
     with open(file_path, 'w', encoding='utf8') as f:
         f.write(file_formatted)
 
 
-def compile(workspace_path):
+def compile(workspace_path, file_path):
     global_config.set_workspace_path(workspace_path)
 
-    for path, folders, files in os.walk(workspace_path):
-        for file in files:
-            if not file.endswith('.md'):
-                continue
+    if file_path is not None:
+        if not file_path.startswith(workspace_path):
+            file_path = os.path.join(workspace_path, file_path)
+        compile_one_file(file_path)
+    else:
+        for path, folders, files in os.walk(workspace_path):
+            for file in files:
+                if not file.endswith('.md'):
+                    continue
 
-            file_path = os.path.join(path, file)
-            compile_one_file(file_path)
+                file_path = os.path.join(path, file)
+                compile_one_file(file_path)
