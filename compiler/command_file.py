@@ -7,11 +7,14 @@ from . import statement_stack
 
 template = '''
 <!-- $${statement} -->
-<img src="{relative_path}"{width_property}{height_property}>
+<a href="{relative_path}">{description}</a>
 '''
 
 
-def image(path, width=None, height=None):
+def file(path, description=None):
+    if description is None:
+        description = os.path.basename(path)
+
     # 检查文件有效
     if not os.path.exists(path):
         raise
@@ -27,17 +30,8 @@ def image(path, width=None, height=None):
         file_helper.force_copy(path, image_path)
 
     relative_path = image_path.replace(global_config.assets_repository_path, '').replace('\\', '/')
-    if width is None:
-        width_property = ''
-    else:
-        width_property = f' width="{width}"'
-    if height is None:
-        height_property = ''
-    else:
-        height_property = f' height="{height}"'
     return template.format(
         statement=statement_stack.peak(),
         relative_path=relative_path,
-        width_property=width_property,
-        height_property=height_property,
+        description=description,
     )

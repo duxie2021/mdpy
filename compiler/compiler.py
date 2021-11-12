@@ -7,6 +7,7 @@ from . import global_config
 from . import formatter
 from . import statement_stack
 from .command_image import image
+from .command_file import file
 
 
 def compile_one_file(file_path):
@@ -36,8 +37,8 @@ def compile_one_file(file_path):
         f.write(file_formatted)
 
 
-def compile(workspace_path, file_path):
-    global_config.set_workspace_path(workspace_path)
+def compile(workspace_path, file_path, assets_repository_path, assets_folder_path):
+    global_config.set_workspace_path(workspace_path, assets_repository_path, assets_folder_path)
 
     if file_path is not None:
         if not file_path.startswith(workspace_path):
