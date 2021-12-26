@@ -3,6 +3,7 @@ from datetime import datetime
 from . import global_config
 from . import file_helper
 from . import statement_stack
+from .common import file_searcher
 
 
 template = '''
@@ -12,6 +13,8 @@ template = '''
 
 
 def image(path, width=None, height=None):
+    # 搜索文件路径
+    path = file_searcher.fill_file(path)
     # 检查文件有效
     if not os.path.exists(path):
         raise
