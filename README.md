@@ -7,8 +7,6 @@
 
 [ ] 文件id和link函数。
 
-[ ] sublime插件
-
 
 ## 规则
 
@@ -49,6 +47,6 @@ py ../mdpy/main.py -d . -f ./trade/20200915_茅台进取.md
 
 ## sublime插件
 
-参见，sublime_text_fans 项目。
-open_github_html.py  打开文件对应在github上的网页
-compile_mdpy_then_sync.py  同步内容到 github
+参见，sublime_text_fans 项目。  
+open_github_html.py  打开文件对应在github上的网页  
+compile_mdpy_then_sync.py  同步内容到 github  
