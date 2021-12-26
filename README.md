@@ -12,15 +12,11 @@
 
 ## 规则
 
-1- image，插入图片。
-
-2- 支持单换行。参见 formatter.py。
-
-3- 自动添加h1标题。参见 insert_h1() formatter.py。
-
-4- 遇到行首和行尾的 {}，自动添加代码范围
-
-5- file，插入文件链接
+1. 命令，image。插入图片。
+2. 命令，file。插入文件链接。
+3. 支持单换行。参见 formatter.py。
+4. 自动添加h1标题。参见 insert_h1() formatter.py。
+5. 遇到行首和行尾的 {}，自动添加代码范围
 
 
 ## 命令行参数
@@ -50,3 +46,9 @@ py ../mdpy/main.py -d . -f ./trade/20200915_茅台进取.md
     }
 }
 ```
+
+## sublime插件
+
+参见，sublime_text_fans 项目。
+open_github_html.py  打开文件对应在github上的网页
+compile_mdpy_then_sync.py  同步内容到 github
