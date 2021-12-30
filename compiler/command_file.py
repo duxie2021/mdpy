@@ -17,9 +17,7 @@ def file(path, description=None):
         description = os.path.basename(path)
 
     # 搜索文件路径
-    print('before      ', path)
     path = file_searcher.fill_file(path)
-    print('after      ', path)
     # 检查文件有效
     if not os.path.exists(path):
         raise

@@ -11,7 +11,6 @@ def fill_file(file):
     filled = file
     config = global_config.get_config()
     for folder in config.search_file_folders:
-        print(folder)
         maybe = os.path.join(folder, file)
         if os.path.exists(maybe):
             filled = maybe
