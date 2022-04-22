@@ -30,10 +30,19 @@ def format_to_markdown(text):
         end_index = match.end()
 
         need_space = True
-        if start_index == 0 or text[start_index - 1] == '\n':
-            need_space = False
-        if end_index == len(text) or text[end_index] == '\n':
-            need_space = False
+        while True:
+            ''' 规则1：开头，结尾，两个连续的换行 '''
+            if start_index == 0 or text[start_index - 1] == '\n':
+                need_space = False
+                break
+            if end_index == len(text) or text[end_index] == '\n':
+                need_space = False
+                break
+            ''' 规则2：">"结尾 '''
+            if text[start_index - 1] == '>':
+                need_space = False
+                break
+            break
 
         text_formatted += text[last_end_index:start_index]
         if need_space:
