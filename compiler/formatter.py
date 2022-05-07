@@ -2,6 +2,19 @@ import re
 import os
 
 
+def split(text, pattern):
+    block_list = []
+    last_end_index = 0
+    for match in re.finditer(pattern, text):
+        end_index = match.end()
+        block_list.append(text[last_end_index:end_index])
+        last_end_index = end_index
+    # 末尾
+    if last_end_index != len(text):
+        block_list.append(text[last_end_index:])
+    return block_list
+
+
 def insert_h1(text, file_path):
     if text.startswith('#'):
         return text
@@ -17,11 +30,42 @@ def replace_brace(text):
     return text
 
 
+def replace_whitespace(text):
+    text_output = ''
+
+    code_block_pattern = re.compile(r'```')
+    line_pattern = re.compile(r'\n|^')
+
+    block_list = split(text, code_block_pattern)
+    for block_index, block in enumerate(block_list):
+        if block_index % 2 == 1:
+            text_output += block
+            continue
+
+        # 按行拆分
+        line_list = split(block, line_pattern)
+        for line in line_list:
+            whitespace_index = 0
+            for whitespace_index in range(0, len(line)):
+                if line[whitespace_index] != ' ':
+                    break
+            if whitespace_index == 0:
+                text_output += line
+                continue
+            text_output += ' ' * whitespace_index + line[whitespace_index:]  # U+00A0
+
+    return text_output
+
+
 def format_to_markdown(text):
-    ''' 1. 单个换行，前置两个空格
+    ''' 遇到行首和行尾的 {}，自动添加代码范围
     '''
     text = replace_brace(text)
-
+    ''' 遇到（非代码块，行首空格），用 U+00A0 代替 U+0020
+    '''
+    text = replace_whitespace(text)
+    ''' 遇到单换行，前置两个空格
+    '''
     enter_pattern = re.compile(r'\n')
     text_formatted = ''
     last_end_index = 0
