@@ -23,5 +23,11 @@ inside code block
 ```
 
 outside code block  
+  1  
+  2
+
+inside waterfall block  
+@@=======
   1  
-  2
+  2  
+@@=======

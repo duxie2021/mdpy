@@ -33,12 +33,12 @@ def replace_brace(text):
 def replace_whitespace(text):
     text_output = ''
 
-    code_block_pattern = re.compile(r'```')
+    waterfall_pattern = re.compile(r'\n@@====[ =]*')
     line_pattern = re.compile(r'\n|^')
 
-    block_list = split(text, code_block_pattern)
+    block_list = split(text, waterfall_pattern)
     for block_index, block in enumerate(block_list):
-        if block_index % 2 == 1:
+        if block_index % 2 == 0:
             text_output += block
             continue
 
@@ -61,7 +61,7 @@ def format_to_markdown(text):
     ''' 遇到行首和行尾的 {}，自动添加代码范围
     '''
     text = replace_brace(text)
-    ''' 遇到（非代码块，行首空格），用 U+00A0 代替 U+0020
+    ''' 遇到（waterfall 块，行首空格），用 U+00A0 代替 U+0020
     '''
     text = replace_whitespace(text)
     ''' 遇到单换行，前置两个空格
