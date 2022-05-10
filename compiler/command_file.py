@@ -1,8 +1,8 @@
 import os
 from datetime import datetime
 from . import global_config
-from . import file_helper
 from . import statement_stack
+from .common import file_helper
 from .common import file_searcher
 
 
