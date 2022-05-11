@@ -21,7 +21,7 @@ def image(path, width=None, height=None):
     # 路径
     if not path.startswith(global_config.assets_folder_path):
         date_text = datetime.today().strftime('%Y%m%d')
-        year_text = datetime.today().strftime('%Y')
+        year_text = date_text[0:4]
         for i in range(1, 1_0000):
             file_name = f'{date_text}_{i:04d}' + os.path.splitext(path)[1]
             image_path = os.path.join(global_config.assets_folder_path, year_text, file_name)
