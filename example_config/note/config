@@ -1,0 +1,7 @@
+{
+    "git_bash":"C:/Program Files/Git/git-bash.exe",
+    "sync_script":".mdpy/compile_then_sync.sh",
+    "search_file_folders": [
+        "C:/Users/Plato/Desktop/Tmp"
+    ]
+}
